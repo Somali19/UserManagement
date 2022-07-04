@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+            disableAnsi="false"
+                pattern="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} %highlight{${LOG_LEVEL_PATTERN:-%5p}}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=cyan bold, TRACE=blue} %style{}{magenta} [%M] %style{%40C}{magenta} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%xEx}" />
+        </Console>
+		
+		<!-- Rolling File Appender -->
+<RollingFile name="RollingFile" fileName="logs/log4j2-demo.log" 
+             filePattern="logs/log4j2-demo-%d{yyyy-MM-dd}-%i.log">
+    <PatternLayout>
+        <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+    </PatternLayout>
+    <Policies>
+        <SizeBasedTriggeringPolicy size="10MB" />
+    </Policies>
+    <DefaultRolloverStrategy max="10"/>
+</RollingFile>
+  <!-- SMTP Appender 
+<SMTP name="MailAppender"
+      subject="Log4j2 Demo [PROD]"
+      to="youremail@example.com"
+      from="log4j2-demo-alerts@example.com"
+      smtpHost="yourSMTPHost"
+      smtpPort="587"
+      smtpUsername="yourSMTPUsername"
+      smtpPassword="yourSMTPPassword"
+      bufferSize="1">
+    <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+    <PatternLayout>
+        <Pattern>${LOG_PATTERN}</Pattern>
+    </PatternLayout>
+</SMTP> -->
+    </Appenders>
+
+    <Loggers>
+        <!-- LOG everything at INFO level -->
+        <Root level="info">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="RollingFile" />
+        </Root>
+
+        <!-- LOG "com.cts*" at TRACE level -->
+        <Logger name="com.cts" level="trace"></Logger>
+    </Loggers>
+  
+
+</Configuration>
