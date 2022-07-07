@@ -34,7 +34,6 @@
     </PatternLayout>
 </SMTP> -->
     </Appenders>
-
     <Loggers>
         <!-- LOG everything at INFO level -->
         <Root level="info">
